@@ -2,11 +2,14 @@
 help:
 	@awk -F ':|##' '/^[^\t].+:.*##/ { printf "\033[36mmake %-28s\033[0m -%s\n", $$1, $$NF }' $(MAKEFILE_LIST) | sort
 
-.PHONY: server-run
-server-run: .server-run	## start server
+.PHONY: build
+build: .build	## tsc -w
 
-.PHONY: client-run
-client-run: .client-run	## start server
+.PHONY: server
+server: .server	## start server, must call build first
+
+.PHONY: client
+client: .client	## run client, must call build first
 
 .PRONY: make-api
 make-api: .make-api ## generate API files
@@ -14,15 +17,19 @@ make-api: .make-api ## generate API files
 
 ################################################################
 
-.server-run:
+.build:
 	mkdir -p ./dist/autogen
 	cp ./src/autogen/* ./dist/autogen
-	tsc
-	node --no-warnings ./dist/server/server.js
+	tsc -w
 
-.client-run:
-	tsc
+.server:
+	./node_modules/.bin/tsnd --respawn ./src/server/server.ts
+# node --no-warnings ./dist/server/server.js
+
+.client:
 	node ./dist/client/client.js
+ 	# ./node_modules/.bin/tsnd --respawn ./src/client/client.ts	
+ 	# ./node_modules/.bin/tsnd ./src/client/client.ts	
 
 # OUT_DIR="."
 # TS_OUT_DIR="."
