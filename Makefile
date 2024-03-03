@@ -14,6 +14,12 @@ make-api: .make-api ## generate API files
 
 ################################################################
 
+.server-run:
+	mkdir -p ./dist/autogen
+	cp ./src/autogen/* ./dist/autogen
+	tsc
+	node ./dist/server/server.js
+
 # OUT_DIR="."
 # TS_OUT_DIR="."
 # IN_DIR="./src/proto"

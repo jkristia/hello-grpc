@@ -27,9 +27,9 @@ function deserialize_helloworld_HelloRequest(buffer_arg) {
 }
 
 
-var HelloServiceService = exports.HelloServiceService = {
+var HelloServerService = exports.HelloServerService = {
   sayHello: {
-    path: '/helloworld.HelloService/SayHello',
+    path: '/helloworld.HelloServer/SayHello',
     requestStream: false,
     responseStream: false,
     requestType: helloworld_pb.HelloRequest,
@@ -41,4 +41,4 @@ var HelloServiceService = exports.HelloServiceService = {
   },
 };
 
-exports.HelloServiceClient = grpc.makeGenericClientConstructor(HelloServiceService);
+exports.HelloServerClient = grpc.makeGenericClientConstructor(HelloServerService);
