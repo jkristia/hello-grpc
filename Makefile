@@ -24,7 +24,7 @@ make-api: .make-api ## generate API files
 
 .server:
 	./node_modules/.bin/tsnd --respawn ./src/server/server.ts
-# node --no-warnings ./dist/server/server.js
+	# node --no-warnings ./dist/server/server.js
 
 .client:
 	node ./dist/client/client.js

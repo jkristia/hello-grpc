@@ -7,12 +7,12 @@ const host = '0.0.0.0:50001';
 
 class DummyBackendService {
 	public delayedHelloReply(req: HelloRequest): Promise<HelloReply> {
-		return new Promise(d => {
+		return new Promise(r => {
 			setTimeout(() => {
 				const reply = new HelloReply();
 				reply.setMessage(`Delayed Hello client: '${req.getName()}', this is your delayed server speaking`);
-				d(reply);
-			}, 100);
+				r(reply);
+			}, 0);
 		})
 	}
 }
