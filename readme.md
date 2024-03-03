@@ -1,5 +1,5 @@
 
-## Node + tpyescript + gRPC
+## Node + typescript + gRPC
 
 playing with gRPC, using examples from below as starting point  
 https://github.com/badsyntax/grpc-js-typescript/tree/master/examples
