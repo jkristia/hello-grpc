@@ -11,15 +11,24 @@ client-run: .client-run	## start server
 .PRONY: make-api
 make-api: .make-api ## generate API files
 
+
 ################################################################
+
+# OUT_DIR="."
+# TS_OUT_DIR="."
+# IN_DIR="./src/proto"
+# PROTOC="$(npm bin)/grpc_tools_node_protoc"
+# PROTOC_GEN_TS_PATH="$(npm bin)/protoc-gen-ts"
+# PROTOC_GEN_GRPC_PATH="$(npm bin)/grpc_tools_node_protoc_plugin"
+
 .make-api:
 	mkdir -p src/autogen
-	grpc_tools_node_protoc \
-		--grpc_out=grpc_js:./src/autogen \
-		--js_out=import_style=commonjs,binary:./src/autogen \
-		./src/proto/helloworld.proto
 
-	protoc \
+	./node_modules/.bin/grpc_tools_node_protoc \
+		-I="./src/proto" \
 		--plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts \
-		--ts_out=grpc_js:./src/autogen \
+		--plugin=protoc-gen-grpc=./node_modules/.bin/grpc_tools_node_protoc_plugin \
+		--js_out=import_style=commonjs:./src/autogen \
+		--grpc_out=grpc_js:./src/autogen \
+		--ts_out=service=grpc-node,mode=grpc-js:./src/autogen \
 		./src/proto/helloworld.proto

@@ -8,6 +8,6 @@ RUN echo "alias ll='ls -alF'" >> /home/node/.zshrc
 RUN echo "alias cls='clear'" >> /home/node/.zshrc
 RUN echo "alias ws='cd /workspaces/hello-grpc'" >> /home/node/.zshrc
 
-RUN npm install -g grpc-tools && \
-	npm install -g grpc_tools_node_protoc_ts && \
-	npm install -g protoc
+# RUN npm install -g grpc-tools && \
+# 	npm install -g grpc_tools_node_protoc_ts && \
+# 	npm install -g protoc
