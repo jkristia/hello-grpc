@@ -18,7 +18,11 @@ make-api: .make-api ## generate API files
 	mkdir -p ./dist/autogen
 	cp ./src/autogen/* ./dist/autogen
 	tsc
-	node ./dist/server/server.js
+	node --no-warnings ./dist/server/server.js
+
+.client-run:
+	tsc
+	node ./dist/client/client.js
 
 # OUT_DIR="."
 # TS_OUT_DIR="."

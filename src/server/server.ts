@@ -3,6 +3,8 @@ import * as grpc from '@grpc/grpc-js';
 import { HelloServerService, IHelloServerServer } from '../autogen/helloworld_grpc_pb';
 import { HelloRequest, HelloReply } from '../autogen/helloworld_pb';
 
+const host = '0.0.0.0:50001';
+
 const helloServer: IHelloServerServer = {
 	sayHello(
 		call: grpc.ServerUnaryCall<HelloRequest, HelloReply>,
@@ -14,12 +16,10 @@ const helloServer: IHelloServerServer = {
 			);
 		}
 		const serverMessage = new HelloReply();
-		serverMessage.setMessage('Message from server');
+		serverMessage.setMessage(`Hello client: '${call.request.getName()}', this is your server speaking`);
 		callback(null, serverMessage);
 	},
 };
-
-const host = '0.0.0.0:50001';
 
 function getServer(): grpc.Server {
 	const server = new grpc.Server();
