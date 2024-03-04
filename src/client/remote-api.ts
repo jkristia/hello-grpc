@@ -1,7 +1,7 @@
 import * as grpc from '@grpc/grpc-js';
 
-import { HelloServer, HelloServerClientImpl } from '../autogen2/src/proto/helloworld';
-import { HelloRequest, HelloReply } from '../autogen2/src/proto/helloworld';
+import { HelloServer, HelloServerClientImpl } from '../autogen/client/helloworld';
+import { HelloRequest, HelloReply } from '../autogen/client/helloworld';
 import { UnaryCallback } from '@grpc/grpc-js/build/src/client';
 
 const host = '0.0.0.0:50001';
@@ -43,7 +43,7 @@ export class RemoteServer extends grpc.Client implements Rpc {
 		// we therefore construct such a string
 		const path = `/${service}/${method}`;
 
-		console.log('sendrequest ', path)
+		// console.log('sendrequest ', path)
 		return new Promise((resolve, reject) => {
 			// makeUnaryRequest transmits the result (and error) with a callback
 			// transform this into a promise!
@@ -88,7 +88,7 @@ export class RemoteApi {
 	public async sayHey10Times() {
 		for (let i = 0; i < 10; i++) {
 			const r = await this.sayHey(`LOOP iteration ${i}`)
-			console.log(r?.message || '<no response>')
+			console.log('Response: ' + r?.message || '<no response>')
 		}
 	}
 }

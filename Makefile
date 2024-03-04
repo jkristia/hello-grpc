@@ -42,7 +42,8 @@ api: .api ## generate API files
 
 .api:
 	mkdir -p src/autogen
-	mkdir -p src/autogen2
+	mkdir -p src/autogen/client
+	mkdir -p src/autogen/server
 
 	# ./node_modules/.bin/grpc_tools_node_protoc \
 	# 	-I="./src/proto" \
@@ -53,7 +54,19 @@ api: .api ## generate API files
 	# 	--ts_out=service=grpc-node,mode=grpc-js:./src/autogen \
 	# 	./src/proto/helloworld.proto
 
+	# --ts_proto_opt=outputServices=generic-definitions \
+	# --ts_proto_opt=outputServices=grpc-js \
+		# --ts_proto_opt=outputClientImpl=true \
+
 	protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto \
+		-I=./src/proto \
 		--ts_proto_opt=lowerCaseServiceMethods=true \
-		--ts_proto_out=./src/autogen2 \
+		--ts_proto_out=./src/autogen/client \
+		./src/proto/helloworld.proto
+
+	protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto \
+		-I=./src/proto \
+		--ts_proto_opt=lowerCaseServiceMethods=true \
+		--ts_proto_opt=outputServices=grpc-js \
+		--ts_proto_out=./src/autogen/server \
 		./src/proto/helloworld.proto
