@@ -1,10 +1,13 @@
 
 ## Node + typescript + gRPC
 
-playing with gRPC, using examples from below as starting point  
-https://github.com/badsyntax/grpc-js-typescript/tree/master/examples
+Using ts-proto (https://github.com/stephenh/ts-proto) for generating gRPC server and client.
+
+Use [this example (badsyntax/grpc-js-typescript)](https://github.com/badsyntax/grpc-js-typescript/tree/master/examples) as starting point. I update the generation to use ts-proto as it generates cleaner TypeScript interfaces and it supports 'plain' JSON interfaces.
+
 
 other gRPC + node links  
+https://github.com/badsyntax/grpc-js-typescript/tree/master/examples
 https://grpc.io/docs/languages/node/quickstart/  
 https://grpc.io/docs/languages/node/basics/  
 https://github.com/grpc/grpc-node  
