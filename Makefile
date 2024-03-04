@@ -11,8 +11,8 @@ server: .server	## start server, must call build first
 .PHONY: client
 client: .client	## run client, must call build first
 
-.PRONY: make-api
-make-api: .make-api ## generate API files
+.PRONY: api
+api: .api ## generate API files
 
 
 ################################################################
@@ -38,14 +38,22 @@ make-api: .make-api ## generate API files
 # PROTOC_GEN_TS_PATH="$(npm bin)/protoc-gen-ts"
 # PROTOC_GEN_GRPC_PATH="$(npm bin)/grpc_tools_node_protoc_plugin"
 
-.make-api:
-	mkdir -p src/autogen
+# https://github.com/stephenh/ts-proto
 
-	./node_modules/.bin/grpc_tools_node_protoc \
-		-I="./src/proto" \
-		--plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts \
-		--plugin=protoc-gen-grpc=./node_modules/.bin/grpc_tools_node_protoc_plugin \
-		--js_out=import_style=commonjs:./src/autogen \
-		--grpc_out=grpc_js:./src/autogen \
-		--ts_out=service=grpc-node,mode=grpc-js:./src/autogen \
+.api:
+	mkdir -p src/autogen
+	mkdir -p src/autogen2
+
+	# ./node_modules/.bin/grpc_tools_node_protoc \
+	# 	-I="./src/proto" \
+	# 	--plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts \
+	# 	--plugin=protoc-gen-grpc=./node_modules/.bin/grpc_tools_node_protoc_plugin \
+	# 	--js_out=import_style=commonjs:./src/autogen \
+	# 	--grpc_out=grpc_js:./src/autogen \
+	# 	--ts_out=service=grpc-node,mode=grpc-js:./src/autogen \
+	# 	./src/proto/helloworld.proto
+
+	protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto \
+		--ts_proto_opt=lowerCaseServiceMethods=true \
+		--ts_proto_out=./src/autogen2 \
 		./src/proto/helloworld.proto
