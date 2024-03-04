@@ -41,22 +41,8 @@ api: .api ## generate API files
 # https://github.com/stephenh/ts-proto
 
 .api:
-	mkdir -p src/autogen
 	mkdir -p src/autogen/client
 	mkdir -p src/autogen/server
-
-	# ./node_modules/.bin/grpc_tools_node_protoc \
-	# 	-I="./src/proto" \
-	# 	--plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts \
-	# 	--plugin=protoc-gen-grpc=./node_modules/.bin/grpc_tools_node_protoc_plugin \
-	# 	--js_out=import_style=commonjs:./src/autogen \
-	# 	--grpc_out=grpc_js:./src/autogen \
-	# 	--ts_out=service=grpc-node,mode=grpc-js:./src/autogen \
-	# 	./src/proto/helloworld.proto
-
-	# --ts_proto_opt=outputServices=generic-definitions \
-	# --ts_proto_opt=outputServices=grpc-js \
-		# --ts_proto_opt=outputClientImpl=true \
 
 	protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto \
 		-I=./src/proto \
